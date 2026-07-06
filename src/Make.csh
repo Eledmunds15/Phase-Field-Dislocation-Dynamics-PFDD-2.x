@@ -153,27 +153,6 @@ else if ($1 == "style") then
      rm style_dump.tmp
   endif
 
-  set list = `grep -l PAIR_CLASS pair_*.h`
-  if (-e style_pair.tmp) then
-    rm style_pair.tmp
-  endif
-  foreach file ($list)
-    set qfile = \"$file\"
-    echo "#include $qfile" >>! style_pair.tmp
-  end
-  if (! -e style_pair.tmp) then
-     rm style_pair.h
-     touch style_pair.h
-  else if (! -e style_pair.h) then
-     mv style_pair.tmp style_pair.h
-     rm Obj_*/potential.d
-  else if (`diff style_pair.h style_pair.tmp` != "") then
-     mv style_pair.tmp style_pair.h
-     rm Obj_*/potential.d
-  else
-     rm style_pair.tmp
-  endif
-
   set list = `grep -l REGION_CLASS region_*.h`
   if (-e style_region.tmp) then
     rm style_region.tmp
